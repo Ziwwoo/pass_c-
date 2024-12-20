@@ -1,0 +1,52 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+class Passport {
+protected:
+    std::string fullName;
+    std::string passportNumber;
+    std::string nationality;
+
+public:
+    Passport(std::string fullName, std::string passportNumber, std::string nationality) 
+        : fullName(fullName), passportNumber(passportNumber), nationality(nationality) {}
+
+    void displayInfo() {
+        std::cout << "Full Name: " << fullName << std::endl;
+        std::cout << "Passport Number: " << passportNumber << std::endl;
+        std::cout << "Nationality: " << nationality << std::endl;
+    }
+};
+
+class ForeignPassport : public Passport {
+private:
+    std::string foreignPassportNumber;
+    std::vector<std::string> visas;
+
+public:
+    ForeignPassport(std::string fullName, std::string passportNumber, std::string nationality, std::string foreignPassportNumber) 
+        : Passport(fullName, passportNumber, nationality), foreignPassportNumber(foreignPassportNumber) {}
+
+    void addVisa(std::string visa) {
+        visas.push_back(visa);
+    }
+
+    void displayForeignPassportInfo() {
+        displayInfo();
+        std::cout << "Foreign Passport Number: " << foreignPassportNumber << std::endl;
+        std::cout << "Visas:" << std::endl;
+        for (std::string visa : visas) {
+            std::cout << visa << std::endl;
+        }
+    }
+};
+
+int main() {
+    ForeignPassport fp("John Doe", "123456789", "Ukrainian", "ZYXWVU987654");
+    fp.addVisa("USA - 01/01/2022");
+    fp.addVisa("Canada - 05/01/2022");
+    fp.displayForeignPassportInfo();
+
+    return 0;
+}
